@@ -1,24 +1,42 @@
 <script setup lang="ts">
 import { CircleMinus, CirclePlus } from "lucide-vue-next";
 import { ref } from "vue";
+import type { resultsType } from "../api/get-products";
+
+const props = defineProps<{ product: resultsType }>();
 
 const productAmount = ref(5);
 </script>
 
 <template>
-  <div class="bg-blue-300 p-3 rounded-lg flex flex-col items-center gap-3">
-    <img src="/assets/computer.jpg" class="object-cover rounded max-w-72" />
+  <div
+    class="border border-zinc-200 p-3 rounded-lg flex flex-col items-center gap-3"
+  >
+    <img
+      :src="product.thumbnail.replace(/\.jpg$/i, 'W.jpg')"
+      class="object-cover w-full rounded max-w-72"
+    />
     <div class="space-y-1.5">
-      <p class="text-xl font-semibold">Notebook ASUS 5.000</p>
-      <p>
-        O computador notebook ASUS tem uma super capacidade de armazenamento e
-        processamento
+      <p class="text-xl font-semibold">
+        {{
+          product.title.length > 30
+            ? product.title.slice(0, 30) + " ..."
+            : product.title
+        }}
+      </p>
+      <p class="text-center text-3xl text-emerald-400 font-semibold">
+        {{
+          product.price.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          })
+        }}
       </p>
     </div>
     <footer class="flex items-center flex-col mb-7 gap-5">
       <div class="flex gap-2">
         <button @click="productAmount--" class="hover:cursor-pointer">
-          <CircleMinus class="hover:text-zinc-100 transition" />
+          <CircleMinus class="hover:text-red-400 transition" />
         </button>
         <input
           type="number"
@@ -26,11 +44,12 @@ const productAmount = ref(5);
           class="shrink border border-zinc-200 rounded p-1 text-center"
         />
         <button @click="productAmount++" class="hover:cursor-pointer">
-          <CirclePlus class="hover:text-zinc-100 transition" />
+          <CirclePlus class="hover:text-emerald-400 transition" />
         </button>
       </div>
+
       <button
-        class="bg-amber-300 hover:bg-amber-400 transition cursor-pointer px-2 py-1 rounded"
+        class="bg-emerald-400 hover:bg-emerald-500 hover:scale-105 transition cursor-pointer px-4 py-2 rounded"
       >
         Comprar
       </button>
