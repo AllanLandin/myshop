@@ -13,7 +13,7 @@ const { data: productsList } = useQuery<resultsType[]>({
   <section class="space-y-2">
     <h2 class="font-display text-xl font-semibold">{{ title }}</h2>
     <swiper-container
-      :loop="true"
+      :loop="false"
       :pagination="true"
       :space-between="30"
       :breakpoints="{

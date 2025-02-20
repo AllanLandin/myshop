@@ -1,5 +1,10 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import ProductsSession from "../components/ProductsSession.vue";
+import { provide } from "vue";
+import { useCartList, cartListKey } from "../hooks/useCartList";
+
+const cartList = useCartList();
+provide(cartListKey, cartList);
 </script>
 
 <template>

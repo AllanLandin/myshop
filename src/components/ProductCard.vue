@@ -1,11 +1,34 @@
 <script setup lang="ts">
 import { CircleMinus, CirclePlus } from "lucide-vue-next";
-import { ref } from "vue";
+import { inject, ref } from "vue";
 import type { resultsType } from "../api/get-products";
+import { cartListKey } from "../hooks/useCartList";
 
-const props = defineProps<{ product: resultsType }>();
+const { product } = defineProps<{ product: resultsType }>();
 
-const productAmount = ref(5);
+const productAmount = ref(0);
+
+const cartList = inject(cartListKey);
+
+function addProductOnCart() {
+  const index = cartList?.value.findIndex((item) => item.id === product.id);
+
+  const isProductAlreadyOnCart = index !== -1;
+
+  if (!index || !cartList) {
+    return;
+  }
+
+  if (isProductAlreadyOnCart) {
+    const updatedCart = [...cartList.value];
+    updatedCart[index] = {
+      ...updatedCart[index],
+      productAmount: productAmount.value,
+    };
+  } else {
+    cartList?.value.push({ ...product, productAmount: productAmount.value });
+  }
+}
 </script>
 
 <template>
@@ -50,8 +73,9 @@ const productAmount = ref(5);
 
       <button
         class="bg-emerald-400 hover:bg-emerald-500 hover:scale-105 transition cursor-pointer px-4 py-2 rounded"
+        @click="addProductOnCart"
       >
-        Comprar
+        Adicionar ao carrinho
       </button>
     </footer>
   </div>
