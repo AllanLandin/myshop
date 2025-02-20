@@ -1,5 +1,15 @@
 <script lang="ts" setup>
+import { provide, ref } from "vue";
 import Header from "../Header.vue";
+
+const isCartVisible = ref<boolean>(true);
+function changeCartVisibility(): void {
+  isCartVisible.value = !isCartVisible.value;
+  console.log(isCartVisible);
+}
+
+provide("isCartVisible", isCartVisible);
+provide("changeCartVisibility", changeCartVisibility);
 </script>
 
 <template>
