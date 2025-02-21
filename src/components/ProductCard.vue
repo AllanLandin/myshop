@@ -58,11 +58,15 @@ function addProductOnCart() {
     </div>
     <footer class="flex items-center flex-col mb-7 gap-5">
       <div class="flex gap-2">
-        <button @click="productAmount--" class="hover:cursor-pointer">
+        <button
+          @click="productAmount > 0 && productAmount--"
+          class="hover:cursor-pointer"
+        >
           <CircleMinus class="hover:text-red-400 transition" />
         </button>
         <input
           type="number"
+          min="0"
           v-model="productAmount"
           class="shrink border border-zinc-200 rounded p-1 text-center"
         />

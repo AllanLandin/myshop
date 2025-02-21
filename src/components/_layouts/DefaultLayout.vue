@@ -2,7 +2,7 @@
 import { provide, ref } from "vue";
 import Header from "../Header.vue";
 
-const isCartVisible = ref<boolean>(true);
+const isCartVisible = ref<boolean>(false);
 function changeCartVisibility(): void {
   isCartVisible.value = !isCartVisible.value;
   console.log(isCartVisible);
