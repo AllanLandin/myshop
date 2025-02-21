@@ -1,8 +1,18 @@
 <script lang="ts" setup>
-import { computed } from "vue";
-import type { cartListItemType } from "../hooks/useCartList";
+import { computed, inject } from "vue";
+import { cartListKey, type cartListItemType } from "../hooks/useCartList";
+import { toast } from "vue-sonner";
 
 const { product } = defineProps<{ product: cartListItemType }>();
+
+const cartList = inject(cartListKey);
+
+function removeProductFromCart() {
+  if (!cartList) return;
+  cartList.value = cartList?.value.filter((item) => item.id !== product.id);
+  toast.success("Produto removido do carrinho!");
+}
+
 const totalPerItem = computed(() => {
   return (product.price * product.productAmount).toLocaleString("pt-BR", {
     style: "currency",
@@ -38,6 +48,7 @@ const totalPerItem = computed(() => {
         <span>Total: {{ totalPerItem }}</span>
         <button
           class="text-red-500 hover:text-red-600 cursor-pointer self-start mt-2"
+          @click="removeProductFromCart"
         >
           Excluir do carrinho
         </button>

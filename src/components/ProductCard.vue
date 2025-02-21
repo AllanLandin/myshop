@@ -3,6 +3,7 @@ import { CircleMinus, CirclePlus } from "lucide-vue-next";
 import { inject, ref } from "vue";
 import type { resultsType } from "../api/get-products";
 import { cartListKey } from "../hooks/useCartList";
+import { toast } from "vue-sonner";
 
 const { product } = defineProps<{ product: resultsType }>();
 
@@ -12,6 +13,11 @@ const cartList = inject(cartListKey);
 
 function addProductOnCart() {
   const index = cartList?.value.findIndex((item) => item.id === product.id);
+
+  if (productAmount.value <= 0) {
+    toast.error("A quantidade deve ser maior do que 0!!!");
+    return;
+  }
 
   const isProductAlreadyOnCart = index !== -1;
 
@@ -28,6 +34,7 @@ function addProductOnCart() {
   } else {
     cartList?.value.push({ ...product, productAmount: productAmount.value });
   }
+  toast.success("Produto adicionado no carrinho!");
 }
 </script>
 

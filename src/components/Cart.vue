@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
-import { X } from "lucide-vue-next";
+import { ShoppingBasket, X } from "lucide-vue-next";
 import { cartListKey } from "../hooks/useCartList";
 import CartItem from "./CartItem.vue";
 
@@ -33,10 +33,17 @@ const totalCart = computed(() => {
       </button>
     </div>
     <ul
+      v-if="cartList?.length"
       class="flex flex-col gap-3 py-3 w-full overflow-y-auto p-2 h-full scrollbar-none"
     >
       <CartItem v-for="product in cartList" :product="product" />
     </ul>
+    <div v-else class="h-full flex items-center justify-center">
+      <div class="flex flex-col gap-2 items-center font-display font-bold">
+        <span class="text-2xl">O seu carrinho está vazio!</span>
+        <ShoppingBasket :size="70" />
+      </div>
+    </div>
     <div class="py-3 flex justify-between items-center">
       <div>
         <span class="font-semibold text-xl">Total do carrinho: </span>
