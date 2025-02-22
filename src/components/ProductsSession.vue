@@ -6,14 +6,14 @@ const { title } = defineProps<{ title: string }>();
 
 const { data: productsList } = useQuery<resultsType[]>({
   queryKey: ["session-products", title],
-  queryFn: () => getProducts({ query: title, limit: 5 }),
+  queryFn: () => getProducts({ query: title, limit: 10 }),
 });
 </script>
 <template>
   <section class="space-y-2">
     <h2 class="font-display text-xl font-semibold">{{ title }}</h2>
     <swiper-container
-      :loop="true"
+      :loop="false"
       :pagination="true"
       :space-between="30"
       :breakpoints="{

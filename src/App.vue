@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { register } from "swiper/element/bundle";
+import { Toaster } from "vue-sonner";
 register();
-import { ref, provide } from "vue";
-
-const cartList = ref([{}]);
-provide("cartList", cartList);
 </script>
 
 <template>
+  <Toaster position="bottom-left" />
   <router-view></router-view>
 </template>

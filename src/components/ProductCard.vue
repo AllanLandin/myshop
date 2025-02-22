@@ -1,11 +1,42 @@
 <script setup lang="ts">
 import { CircleMinus, CirclePlus } from "lucide-vue-next";
-import { ref } from "vue";
+import { inject, ref } from "vue";
 import type { resultsType } from "../api/get-products";
+import { cartListKey } from "../hooks/useCartList";
+import { toast } from "vue-sonner";
 
-const props = defineProps<{ product: resultsType }>();
+const { product } = defineProps<{ product: resultsType }>();
 
-const productAmount = ref(5);
+const productAmount = ref(0);
+
+const cartList = inject(cartListKey);
+
+function addProductOnCart() {
+  const index = cartList?.value.findIndex((item) => item.id === product.id);
+
+  if (productAmount.value <= 0) {
+    toast.error("A quantidade deve ser maior do que 0!!!");
+    return;
+  }
+
+  const isProductAlreadyOnCart = index !== -1;
+
+  if (!index || !cartList) {
+    return;
+  }
+
+  if (isProductAlreadyOnCart) {
+    const updatedCart = [...cartList.value];
+    updatedCart[index] = {
+      ...updatedCart[index],
+      productAmount: productAmount.value,
+    };
+  } else {
+    cartList?.value.push({ ...product, productAmount: productAmount.value });
+  }
+  productAmount.value = 0;
+  toast.success("Produto adicionado no carrinho!");
+}
 </script>
 
 <template>
@@ -35,11 +66,15 @@ const productAmount = ref(5);
     </div>
     <footer class="flex items-center flex-col mb-7 gap-5">
       <div class="flex gap-2">
-        <button @click="productAmount--" class="hover:cursor-pointer">
+        <button
+          @click="productAmount > 0 && productAmount--"
+          class="hover:cursor-pointer"
+        >
           <CircleMinus class="hover:text-red-400 transition" />
         </button>
         <input
           type="number"
+          min="0"
           v-model="productAmount"
           class="shrink border border-zinc-200 rounded p-1 text-center"
         />
@@ -50,8 +85,9 @@ const productAmount = ref(5);
 
       <button
         class="bg-emerald-400 hover:bg-emerald-500 hover:scale-105 transition cursor-pointer px-4 py-2 rounded"
+        @click="addProductOnCart"
       >
-        Comprar
+        Adicionar ao carrinho
       </button>
     </footer>
   </div>
