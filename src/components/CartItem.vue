@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
 import { cartListKey, type cartListItemType } from "../hooks/useCartList";
-import { toast } from "vue-sonner";
 
 const { product } = defineProps<{ product: cartListItemType }>();
 
@@ -10,7 +9,6 @@ const cartList = inject(cartListKey);
 function removeProductFromCart() {
   if (!cartList) return;
   cartList.value = cartList?.value.filter((item) => item.id !== product.id);
-  toast.success("Produto removido do carrinho!");
 }
 
 const totalPerItem = computed(() => {

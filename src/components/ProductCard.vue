@@ -34,6 +34,7 @@ function addProductOnCart() {
   } else {
     cartList?.value.push({ ...product, productAmount: productAmount.value });
   }
+  productAmount.value = 0;
   toast.success("Produto adicionado no carrinho!");
 }
 </script>
