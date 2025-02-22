@@ -28,8 +28,9 @@ function handleSearch() {
       class="transition font-display font-semibold text-2xl hover:scale-105"
       >MyShop</router-link
     >
-    <div
+    <form
       class="border border-zinc-200 rounded-lg p-2 grow max-w-[650px] flex gap-3"
+      @submit.prevent="handleSearch"
     >
       <input
         v-model="searchQuery"
@@ -38,12 +39,12 @@ function handleSearch() {
         class="grow"
       />
       <button
-        @click="handleSearch"
+        type="submit"
         class="cursor-pointer hover:text-emerald-300 transition"
       >
         <Search :size="24" />
       </button>
-    </div>
+    </form>
     <button class="hover:scale-110 hover:cursor-pointer transition-all">
       <ShoppingCart @click="changeCartVisibility" />
     </button>
