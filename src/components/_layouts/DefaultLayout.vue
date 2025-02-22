@@ -16,7 +16,7 @@ provide(cartListKey, cartList);
 </script>
 
 <template>
-  <div class="container m-auto space-y-1.5 px-2 py-3">
+  <div class="container m-auto space-y-5 px-2 py-3">
     <Header />
     <Cart />
     <router-view></router-view>

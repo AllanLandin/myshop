@@ -2,12 +2,18 @@
 import { Search, ShoppingCart } from "lucide-vue-next";
 import { inject, ref } from "vue";
 import { useRouter } from "vue-router";
+import { toast } from "vue-sonner";
 const changeCartVisibility = inject<() => void>("changeCartVisibility");
 
 const searchQuery = ref("");
 const router = useRouter();
 
 function handleSearch() {
+  if (!searchQuery.value) {
+    toast.error("Digite algo para pesquisar!");
+    return;
+  }
+
   router.push({
     path: "/searchProduct",
     query: { q: searchQuery.value },

@@ -5,6 +5,6 @@ register();
 </script>
 
 <template>
-  <Toaster />
+  <Toaster position="bottom-left" />
   <router-view></router-view>
 </template>

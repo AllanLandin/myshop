@@ -6,7 +6,7 @@ const { title } = defineProps<{ title: string }>();
 
 const { data: productsList } = useQuery<resultsType[]>({
   queryKey: ["session-products", title],
-  queryFn: () => getProducts({ query: title, limit: 5 }),
+  queryFn: () => getProducts({ query: title, limit: 10 }),
 });
 </script>
 <template>

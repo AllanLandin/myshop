@@ -3,6 +3,10 @@ import { computed, inject } from "vue";
 import { ShoppingBasket, X } from "lucide-vue-next";
 import { cartListKey } from "../hooks/useCartList";
 import CartItem from "./CartItem.vue";
+import { toast } from "vue-sonner";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const isCartVisible = inject<boolean>("isCartVisible");
 const changeCartVisibility = inject<() => void>("changeCartVisibility");
@@ -17,6 +21,41 @@ const totalCart = computed(() => {
     currency: "BRL",
   });
 });
+
+function deleteCart() {
+  if (cartList) {
+    cartList.value = [];
+  }
+}
+
+function goHomepage() {
+  if (!changeCartVisibility) return;
+  changeCartVisibility();
+  router.push("/");
+}
+
+function handleBuy() {
+  if (!cartList) {
+    return;
+  }
+
+  if (cartList.value.length < 1) {
+    toast.error("Erro: O seu carrinho está vazio!", {
+      closeButton: true,
+      position: "top-center",
+    });
+    return;
+  }
+
+  toast.success("Compra realizada com sucesso!", {
+    closeButton: true,
+    position: "top-center",
+    description: "Agradecemos a sua compra!",
+    action: { label: "Ver mais produtos", onClick: goHomepage },
+  });
+
+  deleteCart();
+}
 </script>
 <template>
   <div
@@ -44,16 +83,27 @@ const totalCart = computed(() => {
         <ShoppingBasket :size="70" />
       </div>
     </div>
-    <div class="py-3 flex justify-between items-center">
+    <div
+      class="py-3 flex flex-col md:flex-row gap-3 justify-between items-center"
+    >
       <div>
         <span class="font-semibold text-xl">Total do carrinho: </span>
         <span class="font-semibold text-xl">{{ totalCart }}</span>
       </div>
-      <button
-        class="p-2 bg-emerald-100 rounded font-semibold cursor-pointer hover:scale-105 transition-all"
-      >
-        Finalizar compra
-      </button>
+      <div class="flex gap-2 flex-col md:flex-row">
+        <button
+          @click="handleBuy"
+          class="p-2 bg-emerald-100 rounded font-semibold cursor-pointer hover:scale-105 transition-all"
+        >
+          Finalizar compra
+        </button>
+        <button
+          @click="deleteCart"
+          class="p-2 border border-zinc-50 rounded font-semibold cursor-pointer hover:scale-105 transition-all"
+        >
+          Excluir carrinho
+        </button>
+      </div>
     </div>
   </div>
 </template>
