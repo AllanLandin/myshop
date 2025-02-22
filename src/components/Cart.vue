@@ -60,7 +60,7 @@ function handleBuy() {
 <template>
   <div
     v-if="isCartVisible"
-    class="h-screen w-screen md:w-1/2 z-50 space-y-1 rounded-l-lg p-5 bg-emerald-400 top-0 fixed right-0 transition flex flex-col"
+    class="h-screen w-screen md:w-1/2 z-50 space-y-1 md:rounded-l-lg p-5 bg-emerald-400 top-0 fixed right-0 transition flex flex-col"
   >
     <div class="flex justify-between">
       <span class="font-display text-2xl font-semibold">Carrinho</span>
