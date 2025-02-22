@@ -2,6 +2,8 @@
 import { useQuery } from "@tanstack/vue-query";
 import ProductCard from "../components/ProductCard.vue";
 import { getProducts, type resultsType } from "../api/get-products";
+import { LoaderCircle } from "lucide-vue-next";
+
 const { title } = defineProps<{ title: string }>();
 
 const { data: productsList } = useQuery<resultsType[]>({
@@ -28,9 +30,15 @@ const { data: productsList } = useQuery<resultsType[]>({
         },
       }"
     >
-      <swiper-slide v-for="product in productsList">
+      <swiper-slide v-if="productsList" v-for="product in productsList">
         <ProductCard :product="product" />
       </swiper-slide>
+      <div
+        v-else
+        class="w-full h-[530px] bg-zinc-200 animate-pulse rounded-lg flex items-center justify-center"
+      >
+        <LoaderCircle class="animate-spin" />
+      </div>
     </swiper-container>
   </section>
 </template>
