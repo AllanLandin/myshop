@@ -12,25 +12,28 @@ const productAmount = ref(0);
 const cartList = inject(cartListKey);
 
 function addProductOnCart() {
-  const index = cartList?.value.findIndex((item) => item.id === product.id);
-
   if (productAmount.value <= 0) {
     toast.error("The quantity shoul be more than zero!!!");
     return;
   }
 
+  const index = cartList?.value.findIndex((item) => item.id === product.id);
+
   const isProductAlreadyOnCart = index !== -1;
 
-  if (!index || !cartList) {
+  if (index == undefined || cartList == undefined) {
     return;
   }
 
   if (isProductAlreadyOnCart) {
     const updatedCart = [...cartList.value];
+
     updatedCart[index] = {
       ...updatedCart[index],
-      productAmount: productAmount.value,
+      productAmount: productAmount.value + updatedCart[index].productAmount,
     };
+
+    cartList.value = updatedCart;
   } else {
     cartList?.value.push({ ...product, productAmount: productAmount.value });
   }

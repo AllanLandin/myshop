@@ -27,7 +27,7 @@ const totalPerItem = computed(() => {
       <p class="text-2xl font-semibold font-sans">{{ product.title }}</p>
       <div class="flex flex-col space-y-0.5">
         <div class="space-x-1.5">
-          <span>Quantidade:</span>
+          <span>Amount:</span>
           <input
             min="1"
             type="number"
@@ -37,7 +37,7 @@ const totalPerItem = computed(() => {
         </div>
 
         <div>
-          <span>Valor unitário:</span>
+          <span>Unit Price:</span>
           {{
             product.price.toLocaleString("en-US", {
               style: "currency",
@@ -45,12 +45,12 @@ const totalPerItem = computed(() => {
             })
           }}
         </div>
-        <span>Total: {{ totalPerItem }}</span>
+        <span>Subtotal: {{ totalPerItem }}</span>
         <button
           class="text-red-500 hover:text-red-600 cursor-pointer self-start mt-2"
           @click="removeProductFromCart"
         >
-          Excluir do carrinho
+          Delete from cart
         </button>
       </div>
     </div>
