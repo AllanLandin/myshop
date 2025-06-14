@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { CircleMinus, CirclePlus } from "lucide-vue-next";
 import { inject, ref } from "vue";
-import type { resultsType } from "../api/get-products";
+import type { Product } from "../api/get-products";
 import { cartListKey } from "../hooks/useCartList";
 import { toast } from "vue-sonner";
 
-const { product } = defineProps<{ product: resultsType }>();
+const { product } = defineProps<{ product: Product }>();
 
 const productAmount = ref(0);
 
@@ -43,10 +43,7 @@ function addProductOnCart() {
   <div
     class="border border-zinc-200 p-3 rounded-lg flex flex-col items-center gap-3"
   >
-    <img
-      :src="product.thumbnail.replace(/\.jpg$/i, 'W.jpg')"
-      class="object-cover w-full rounded max-w-72"
-    />
+    <img :src="product.image" class="object-contain rounded h-32 w-32" />
     <div class="space-y-1.5">
       <p class="text-xl font-semibold">
         {{

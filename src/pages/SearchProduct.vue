@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
-import { getProducts, type resultsType } from "../api/get-products";
+import { getProducts, type Product } from "../api/get-products";
 import ProductCard from "../components/ProductCard.vue";
 import { LoaderCircle } from "lucide-vue-next";
 
 const route = useRoute();
 const loading = ref(true);
 
-const productsList = ref<resultsType[]>([]);
+const productsList = ref<Product[]>([]);
 
 watchEffect(async () => {
   loading.value = true;

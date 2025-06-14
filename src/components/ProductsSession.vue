@@ -1,14 +1,17 @@
 <script lang="ts" setup>
 import { useQuery } from "@tanstack/vue-query";
 import ProductCard from "../components/ProductCard.vue";
-import { getProducts, type resultsType } from "../api/get-products";
+import { getProducts, type Categorys, type Product } from "../api/get-products";
 import { LoaderCircle } from "lucide-vue-next";
 
-const { title } = defineProps<{ title: string }>();
+const { title, category } = defineProps<{
+  title: string;
+  category: Categorys;
+}>();
 
-const { data: productsList } = useQuery<resultsType[]>({
+const { data: productsList } = useQuery<Product[]>({
   queryKey: ["session-products", title],
-  queryFn: () => getProducts({ query: title, limit: 10 }),
+  queryFn: () => getProducts({ category: category, limit: 10 }),
 });
 </script>
 <template>

@@ -4,8 +4,8 @@ import ProductsSession from "../components/ProductsSession.vue";
 
 <template>
   <main class="flex flex-col gap-5">
-    <ProductsSession title="Computadores" />
-    <ProductsSession title="Televisão" />
-    <ProductsSession title="Geladeira" />
+    <ProductsSession title="Joias" category="jewelery" />
+    <ProductsSession title="Roupas femininas" category="women's clothing" />
+    <ProductsSession title="Roupas masculinas" category="men's clothing" />
   </main>
 </template>

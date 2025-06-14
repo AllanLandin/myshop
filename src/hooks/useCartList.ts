@@ -1,7 +1,7 @@
 import { ref, type InjectionKey, type Ref } from "vue";
-import type { resultsType } from "../api/get-products";
+import type { Product } from "../api/get-products";
 
-export interface cartListItemType extends resultsType {
+export interface cartListItemType extends Product {
   productAmount: number;
 }
 
