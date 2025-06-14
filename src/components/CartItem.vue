@@ -12,9 +12,9 @@ function removeProductFromCart() {
 }
 
 const totalPerItem = computed(() => {
-  return (product.price * product.productAmount).toLocaleString("pt-BR", {
+  return (product.price * product.productAmount).toLocaleString("en-US", {
     style: "currency",
-    currency: "BRL",
+    currency: "USD",
   });
 });
 </script>
@@ -22,7 +22,7 @@ const totalPerItem = computed(() => {
   <div
     class="flex flex-col md:flex-row items-center gap-3 rounded bg-zinc-50 p-4"
   >
-    <img :src="product.image" class="w-48 h-48" />
+    <img :src="product.image" class="w-24 h-24 object-contain" />
     <div>
       <p class="text-2xl font-semibold font-sans">{{ product.title }}</p>
       <div class="flex flex-col space-y-0.5">
@@ -39,9 +39,9 @@ const totalPerItem = computed(() => {
         <div>
           <span>Valor unitário:</span>
           {{
-            product.price.toLocaleString("pt-BR", {
+            product.price.toLocaleString("en-US", {
               style: "currency",
-              currency: "BRL",
+              currency: "USD",
             })
           }}
         </div>

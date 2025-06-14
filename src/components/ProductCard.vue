@@ -15,7 +15,7 @@ function addProductOnCart() {
   const index = cartList?.value.findIndex((item) => item.id === product.id);
 
   if (productAmount.value <= 0) {
-    toast.error("A quantidade deve ser maior do que 0!!!");
+    toast.error("The quantity shoul be more than zero!!!");
     return;
   }
 
@@ -35,7 +35,7 @@ function addProductOnCart() {
     cartList?.value.push({ ...product, productAmount: productAmount.value });
   }
   productAmount.value = 0;
-  toast.success("Produto adicionado no carrinho!");
+  toast.success("Product added in your cart!");
 }
 </script>
 
@@ -54,9 +54,9 @@ function addProductOnCart() {
       </p>
       <p class="text-center text-3xl text-emerald-400 font-semibold">
         {{
-          product.price.toLocaleString("pt-BR", {
+          product.price.toLocaleString("en-US", {
             style: "currency",
-            currency: "BRL",
+            currency: "USD",
           })
         }}
       </p>
@@ -84,7 +84,7 @@ function addProductOnCart() {
         class="bg-emerald-400 hover:bg-emerald-500 hover:scale-105 transition cursor-pointer px-4 py-2 rounded"
         @click="addProductOnCart"
       >
-        Adicionar ao carrinho
+        Add on cart
       </button>
     </footer>
   </div>
