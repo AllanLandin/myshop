@@ -5,16 +5,12 @@ import {
 } from "vue-router";
 import Home from "./pages/Home.vue";
 import DefaultLayout from "./components/_layouts/DefaultLayout.vue";
-import SearchProduct from "./pages/SearchProduct.vue";
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
     component: DefaultLayout,
-    children: [
-      { path: "/", component: Home },
-      { path: "/searchProduct", component: SearchProduct },
-    ],
+    children: [{ path: "/", component: Home }],
   },
 ];
 
